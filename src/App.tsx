@@ -1,8 +1,10 @@
 import { ChakraProvider, Button, extendTheme } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from './Router';
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 
 export const theme = extendTheme({
+  components: { Steps },
   styles: {
     global: {
       '#root, body, html': {

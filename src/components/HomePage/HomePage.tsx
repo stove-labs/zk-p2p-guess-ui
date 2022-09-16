@@ -15,7 +15,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-export const HomePage = () => {
+export const HomePage: React.FC = () => {
   return (
     <>
       <Container height="100%" maxWidth={{ base: '100%', md: '900px' }}>

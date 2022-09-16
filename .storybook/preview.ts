@@ -8,5 +8,7 @@ export const parameters = {
       date: /Date$/,
     },
   },
-  chakra: theme,
+  chakra: {
+    theme,
+  },
 };
