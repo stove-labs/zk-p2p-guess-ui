@@ -1,4 +1,4 @@
-import { ChallengerPage as ChallengerPageComponent } from './../components/ChallengerPage/ChallengerPage';
+import { ChallengerPage as ChallengerPageContainer } from './../containers/ChallengerPage/ChallengerPage';
 export const ChallengerPage: React.FC = () => {
-  return <ChallengerPageComponent />;
+  return <ChallengerPageContainer />;
 };
