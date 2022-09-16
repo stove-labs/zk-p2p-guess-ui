@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.3.2",
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "framer-motion": "^7.3.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -16,10 +20,19 @@
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.37.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.8",
+    "prettier": "^2.7.1",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-swc": "^0.2.1",
-    "typescript": "^4.6.4",
+    "typescript": "^4.8.3",
     "vite": "^3.1.0",
     "vite-plugin-cross-origin-isolation": "^0.1.6"
   }

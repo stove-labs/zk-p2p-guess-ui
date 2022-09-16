@@ -1,8 +1,11 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import { ChakraProvider, Button } from '@chakra-ui/react';
 
 function App() {
-  return <></>;
+  return (
+    <ChakraProvider>
+      <Button>Click me!</Button>
+    </ChakraProvider>
+  );
 }
 
 export default App;
