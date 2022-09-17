@@ -11,9 +11,12 @@ const Template: ComponentStory<typeof InviteFriend> = (args) => (
 );
 
 export const GeneratingLink = Template.bind({});
+GeneratingLink.args = {
+  selectedCat: data.storyCats[0],
+};
 
-export const linkReady = Template.bind({});
-linkReady.args = {
+export const LinkReady = Template.bind({});
+LinkReady.args = {
   peerId: '123',
   selectedCat: data.storyCats[0],
 };

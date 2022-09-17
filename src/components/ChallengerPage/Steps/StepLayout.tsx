@@ -1,14 +1,15 @@
-import { Box, Center } from '@chakra-ui/react';
+import { Box, BoxProps, Center } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
 export type StepLayoutProps = PropsWithChildren<{
-  width: string;
+  width: BoxProps['width'];
 }>;
 
+// TODO: unify step title/description
 export const StepLayout: React.FC<StepLayoutProps> = ({ children, width }) => {
   return (
     <Center>
-      <Box pt={8} width={width}>
+      <Box pt={10} width={width}>
         {children}
       </Box>
     </Center>

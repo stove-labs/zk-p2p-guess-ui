@@ -15,6 +15,7 @@ const SelectableImg = styled.img<{ selected?: boolean }>`
   border-radius: 12px;
   transform: scale(1);
   cursor: pointer;
+  -webkit-user-drag: none;
 
   &:hover {
     border-color: var(--chakra-colors-gray-300);
@@ -23,9 +24,9 @@ const SelectableImg = styled.img<{ selected?: boolean }>`
   ${(props) =>
     props.selected &&
     `
-    border-color: var(--chakra-colors-teal-500);
+    border-color: var(--chakra-colors-green-500);
     &:hover {
-      border-color: var(--chakra-colors-teal-500);
+      border-color: var(--chakra-colors-green-500);
     }
   `}
 `;

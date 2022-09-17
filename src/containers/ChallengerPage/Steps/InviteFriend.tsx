@@ -9,7 +9,7 @@ export const InviteFriend: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
 
   // when the peer connects, proceed to the next step
   useEffect(() => {
-    setTimeout(nextStep, 3000);
+    // setTimeout(nextStep, 3000);
   }, [nextStep]);
   return <InviteFriendComponent peerId={peerId} selectedCat={selectedCat} />;
 };

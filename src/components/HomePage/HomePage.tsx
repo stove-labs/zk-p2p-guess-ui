@@ -114,7 +114,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onGameStart }) => {
         >
           <Button
             onClick={onGameStart}
-            colorScheme="teal"
+            colorScheme="green"
             width={'100%'}
             rightIcon={<ChevronRightIcon />}
           >

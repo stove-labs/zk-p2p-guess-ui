@@ -26,6 +26,7 @@ import { StepLayout } from '../StepLayout';
 import { useStopwatch } from 'react-timer-hook';
 import { useCopyToClipboard } from 'usehooks-ts';
 import { Cat } from '../../Stepper';
+import { TimeElapsed } from '../../../TimeElapsed';
 
 export type InviteFriendProps = {
   peerId?: string;
@@ -43,8 +44,6 @@ export const InviteFriend: React.FC<InviteFriendProps> = ({
   );
 
   const toast = useToast();
-  // keep track of how long this step is taking (compilation + waiting for p2p connection)
-  const { seconds } = useStopwatch({ autoStart: true });
   const [copiedValue, copy] = useCopyToClipboard();
 
   const handleCopyLink = useCallback(() => {
@@ -62,7 +61,7 @@ export const InviteFriend: React.FC<InviteFriendProps> = ({
   const hasCopied = useMemo(() => !!copiedValue, [copiedValue]);
 
   return (
-    <StepLayout width={'500px'}>
+    <StepLayout width={{ base: '100%', md: '500px' }}>
       <Box>
         <Box>
           <Heading>Invite a friend</Heading>
@@ -88,12 +87,7 @@ export const InviteFriend: React.FC<InviteFriendProps> = ({
             pl={20}
           >
             <Center flexDirection={'column'}>
-              <Heading size={'lg'}>
-                {seconds > 1800 ? '> 30m' : `${seconds}s`}
-              </Heading>
-              <Text fontSize={'xs'} color={'gray.500'}>
-                Time elapsed
-              </Text>
+              <TimeElapsed />
             </Center>
             <Box pt={5}>
               <Button

@@ -19,13 +19,15 @@ export const ChallengerPage: React.FC = () => {
         description: 'Share a link',
         content: InviteFriend,
       },
-      // wait for a guess attempt, then proceed
+      // wait for a guess attempt then validate it, send back confirmation about the result to the second player
+      // then proceed to showing results
+      // status: GUESSING | PROVING | VALIDATING
       {
         label: '⏳ Wait for a guess',
         description: `Friend's turn`,
         content: ChooseCat,
       },
-      // validate the guess attempt (if there is a proof, verify it and send confirmation back)
+      // show results of the game
       {
         label: '🏆 Results',
         description: `Who won?`,
