@@ -34,9 +34,11 @@ export const Stepper: React.FC<StepperProps> = ({ steps }) => {
     <PageLayout>
       <Flex flexDir="column" width="100%">
         <Steps activeStep={activeStep}>
-          {steps.map(({ label, description, content }) => (
+          {steps.map(({ label, description, content: Content }, i) => (
             <Step description={description} label={label} key={label}>
-              {content({ nextStep })}
+              <div key={`i-${label}`}>
+                {i === activeStep && <Content nextStep={nextStep} />}
+              </div>
             </Step>
           ))}
         </Steps>

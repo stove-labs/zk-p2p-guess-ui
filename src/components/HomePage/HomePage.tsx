@@ -16,7 +16,11 @@ import {
 } from '@chakra-ui/react';
 import { PageLayout } from '../PageLayout/PageLayout';
 
-export const HomePage: React.FC = () => {
+export type HomePageProps = {
+  onGameStart: () => void;
+};
+
+export const HomePage: React.FC<HomePageProps> = ({ onGameStart }) => {
   return (
     <PageLayout slightlySmaller>
       <Flex
@@ -109,6 +113,7 @@ export const HomePage: React.FC = () => {
           width={{ base: '100%', md: '300px' }}
         >
           <Button
+            onClick={onGameStart}
             colorScheme="teal"
             width={'100%'}
             rightIcon={<ChevronRightIcon />}

@@ -14,12 +14,19 @@ const SelectableImg = styled.img<{ selected?: boolean }>`
   transition: all 140ms ease-in-out;
   border-radius: 12px;
   transform: scale(1);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--chakra-colors-gray-300);
+  }
 
   ${(props) =>
     props.selected &&
     `
     border-color: var(--chakra-colors-teal-500);
-    // transform: scale(1.2);
+    &:hover {
+      border-color: var(--chakra-colors-teal-500);
+    }
   `}
 `;
 

@@ -2,6 +2,7 @@ import { Stepper, Step, StepperProps } from './Stepper';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
 import { data } from './Steps/ChooseCat/ChooseCat.stories';
+import { InviteFriend } from './Steps/InviteFriend/InviteFriend';
 
 export default {
   component: Stepper,
@@ -20,6 +21,8 @@ const MockChooseCat: Step['content'] = ({ nextStep }) => (
   />
 );
 
+const MockInviteFriend: Step['content'] = ({ nextStep }) => <InviteFriend />;
+
 const steps: Step[] = [
   {
     label: '🐱 Choose a cat',
@@ -27,9 +30,9 @@ const steps: Step[] = [
     content: MockChooseCat,
   },
   {
-    label: '🔗 Share a link',
-    description: 'Invite a friend',
-    content: MockChooseCat,
+    label: 'Invite a friend',
+    description: '🔗 Share a link',
+    content: MockInviteFriend,
   },
   {
     label: '⏳ Wait for a guess',
