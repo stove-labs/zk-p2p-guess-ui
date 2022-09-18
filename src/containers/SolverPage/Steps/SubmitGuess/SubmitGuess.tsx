@@ -21,7 +21,6 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
     sendGuessStatus('PROVING');
     // after a while submit a proof
     setTimeout(() => {
-      console.log('submitting guess');
       sendGuessStatus('SENT');
       submitGuess('mock-proof');
     }, 3000);
