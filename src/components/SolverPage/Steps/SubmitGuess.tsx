@@ -10,7 +10,7 @@ import { TimeElapsed } from '../../TimeElapsed';
 
 export type SubmitGuessProps = {
   selectedCat: Cat;
-  status: 'GENERATING_PROOF' | 'RESULTS_READY';
+  status: 'GENERATING_PROOF' | 'AWAITING_VALIDATION' | 'RESULTS_READY';
   onShowResults: () => void;
 };
 
@@ -24,7 +24,7 @@ export const SubmitGuess: React.FC<SubmitGuessProps> = ({
   });
 
   useEffect(() => {
-    startCountdown();
+    status === 'RESULTS_READY' && startCountdown();
   }, [startCountdown]);
 
   const handleShowResults = useCallback(() => {
@@ -32,8 +32,17 @@ export const SubmitGuess: React.FC<SubmitGuessProps> = ({
   }, [onShowResults]);
 
   useEffect(() => {
-    if (count === 0) handleShowResults();
+    if (count === 0 && status === 'RESULTS_READY') handleShowResults();
   }, [count, handleShowResults]);
+
+  const loadingText = useMemo(() => {
+    switch (status) {
+      case 'GENERATING_PROOF':
+        return 'Proving your guess...';
+      case 'AWAITING_VALIDATION':
+        return 'Waiting for validation...';
+    }
+  }, [status]);
 
   return (
     <StepLayout width={{ base: '100%', md: '500px' }}>
@@ -68,8 +77,8 @@ export const SubmitGuess: React.FC<SubmitGuessProps> = ({
             </Center>
             <Box pt={5}>
               <Button
-                isLoading={status === 'GENERATING_PROOF'}
-                loadingText={'Proving your guess...'}
+                isLoading={status !== 'RESULTS_READY'}
+                loadingText={loadingText}
                 width={'100%'}
                 minWidth={'220px'}
                 p={3}

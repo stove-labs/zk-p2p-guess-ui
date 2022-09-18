@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
-import { AwaitGuess } from './Steps/AwaitGuess';
-import { ChooseCat } from './Steps/ChooseCat';
-import { InviteFriend } from './Steps/InviteFriend';
+import { WhoWon } from '../../components/ChallengerPage/Steps/WhoWon/WhoWon';
+import { AwaitGuess } from './Steps/AwaitGuess/AwaitGuess';
+import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
+import { InviteFriend } from './Steps/InviteFriend/InviteFriend';
 
+// container responsible for orchestrating challenge steps for the Challenger
 export const ChallengerPage: React.FC = () => {
   const steps: Step[] = useMemo(() => {
     return [
@@ -14,7 +16,7 @@ export const ChallengerPage: React.FC = () => {
         description: `Meow, meow!`,
         content: ChooseCat,
       },
-      // setup the p2p connection, wait for the 2nd player to connect and then proceed
+      // setup the p2p connection, wait for the 2nd player to connect, handover the challenge and then proceed
       {
         label: '🔗 Invite a friend',
         description: 'Share a link',
@@ -32,7 +34,13 @@ export const ChallengerPage: React.FC = () => {
       {
         label: '🏆 Results',
         description: `Who won?`,
-        content: ChooseCat,
+        content: ({ nextStep }) => (
+          <WhoWon
+            selectedCat={data.storyCats[0]}
+            status={'YOU_WON'}
+            type={'SOLVER'}
+          />
+        ),
       },
     ];
   }, []);

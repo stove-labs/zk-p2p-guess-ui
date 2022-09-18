@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import { WhoWon } from '../../components/ChallengerPage/Steps/WhoWon/WhoWon';
-import { SubmitGuess } from '../../components/SolverPage/Steps/SubmitGuess';
-import { ChooseCat } from '../ChallengerPage/Steps/ChooseCat';
+import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
+import { SubmitGuess } from './Steps/SubmitGuess/SubmitGuess';
 
 export const SolverPage: React.FC = () => {
   const steps: Step[] = useMemo(() => {
@@ -18,13 +18,7 @@ export const SolverPage: React.FC = () => {
       {
         label: '🚀 Submit guess',
         description: `Let them know`,
-        content: ({ nextStep }) => (
-          <SubmitGuess
-            selectedCat={data.storyCats[0]}
-            status={'GENERATING_PROOF'}
-            onShowResults={() => {}}
-          />
-        ),
+        content: SubmitGuess,
       },
       // show results of the game
       {

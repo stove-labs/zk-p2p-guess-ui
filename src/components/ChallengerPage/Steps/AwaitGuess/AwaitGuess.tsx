@@ -1,4 +1,9 @@
-import { CheckCircleIcon, CheckIcon, CopyIcon } from '@chakra-ui/icons';
+import {
+  CheckCircleIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  CopyIcon,
+} from '@chakra-ui/icons';
 import {
   Box,
   Center,
@@ -19,24 +24,30 @@ import {
   Spinner,
   useToast,
 } from '@chakra-ui/react';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { CatImage } from '../ChooseCat/CatImage';
 import { data } from '../ChooseCat/ChooseCat.stories';
 import { StepLayout } from '../StepLayout';
 import { useStopwatch } from 'react-timer-hook';
-import { useCopyToClipboard } from 'usehooks-ts';
+import { useCopyToClipboard, useCountdown } from 'usehooks-ts';
 import { Cat } from '../../Stepper';
 import { StackedCatImage } from '../ChooseCat/StackedCatImage';
 import { TimeElapsed } from '../../../TimeElapsed';
 
 export type AwaitGuessProps = {
   selectedCat: Cat;
-  status: 'AWAITING_GUESS' | 'AWAITING_PROOF' | 'VALIDATING_PROOF';
+  status:
+    | 'AWAITING_GUESS'
+    | 'AWAITING_PROOF'
+    | 'VALIDATING_PROOF'
+    | 'RESULTS_READY';
+  onShowResults: () => void;
 };
 
 export const AwaitGuess: React.FC<AwaitGuessProps> = ({
   selectedCat,
   status,
+  onShowResults,
 }) => {
   const loadingText = useMemo(() => {
     switch (status) {
@@ -48,6 +59,19 @@ export const AwaitGuess: React.FC<AwaitGuessProps> = ({
         return 'Validating proof';
     }
   }, [status]);
+
+  const [count, { startCountdown }] = useCountdown({
+    countStart: 5,
+  });
+
+  useEffect(() => {
+    status === 'RESULTS_READY' && startCountdown();
+  }, [startCountdown]);
+
+  const handleShowResults = useCallback(() => {
+    onShowResults();
+  }, [onShowResults]);
+
   return (
     <StepLayout width={{ base: '100%', md: '500px' }}>
       <Box>
@@ -77,16 +101,29 @@ export const AwaitGuess: React.FC<AwaitGuessProps> = ({
             pl={20}
           >
             <Center flexDirection={'column'}>
-              <TimeElapsed />
+              <TimeElapsed paused={status === 'RESULTS_READY'} />
             </Center>
             <Box pt={5}>
               <Button
-                isLoading={true}
+                isLoading={status !== 'RESULTS_READY'}
                 loadingText={loadingText}
                 width={'100%'}
                 minWidth={'220px'}
+                onClick={handleShowResults}
+                rightIcon={<ChevronRightIcon />}
                 p={3}
-              ></Button>
+              >
+                Show results
+              </Button>
+              {status === 'RESULTS_READY' ? (
+                <Center textAlign={'center'}>
+                  <Text pt={1.5} color={'gray.500'} fontSize={'xs'}>
+                    Showing results automatically <br /> in {count} seconds
+                  </Text>
+                </Center>
+              ) : (
+                <></>
+              )}
             </Box>
           </Center>
         </Center>

@@ -39,7 +39,8 @@ export const InviteFriend: React.FC<InviteFriendProps> = ({
 }) => {
   // link is only valid if a peerId is available
   const sharableLink = useMemo(
-    () => peerId && `http://localhost/challenge/${peerId}`,
+    () =>
+      peerId && `${location.protocol}//${location.host}/challenge/${peerId}`,
     [peerId]
   );
 

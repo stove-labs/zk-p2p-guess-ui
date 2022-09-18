@@ -12,7 +12,7 @@ export type Step = {
 
 export type Cat = {
   // id also used as the challenge secret
-  id: number;
+  id: string;
   // base 64
   image: string;
 };

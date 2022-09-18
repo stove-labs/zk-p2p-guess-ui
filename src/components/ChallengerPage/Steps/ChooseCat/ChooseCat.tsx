@@ -52,7 +52,7 @@ export const ChooseCat: React.FC<ChooseCatProps> = ({
       </Box>
       <Box pt={6}>
         <SimpleGrid columns={3} spacing={4}>
-          {(cats || emptyCats).map((cat, i) => (
+          {((cats?.length && cats) || emptyCats).map((cat, i) => (
             <div
               key={`${cat?.image}-${i}`}
               onClick={() => handleCatOnClick(cat)}
