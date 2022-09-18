@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import { AwaitGuess } from './Steps/AwaitGuess';
-import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
+import { ChooseCat } from './Steps/ChooseCat';
 import { InviteFriend } from './Steps/InviteFriend';
 
 export const ChallengerPage: React.FC = () => {

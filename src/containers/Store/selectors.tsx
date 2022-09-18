@@ -23,3 +23,8 @@ export const useSecret = () => {
   const challenge = useChallenge();
   return useMemo(() => challenge.secret, [challenge.secret]);
 };
+
+export const usePeerId = () => {
+  const [state] = useStoreContext();
+  return state.p2p.peerId;
+};

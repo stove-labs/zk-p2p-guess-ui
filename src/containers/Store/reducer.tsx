@@ -6,21 +6,30 @@ export interface State {
     secret?: Cat;
     cats: {
       data?: Cat[];
-      status: 'STANDBY' | 'LOADING' | 'LOADED';
+      status: 'STANDBY' | 'LOADING' | 'READY';
     };
+  };
+  p2p: {
+    status: 'STANDBY' | 'LOADING' | 'READY';
+    peerId?: string;
   };
 }
 
 export type Action =
   | { type: 'LOAD_CATS' }
   | { type: 'SET_CATS'; payload: { cats: Cat[] } }
-  | { type: 'SET_SECRET'; payload: { secret: Cat } };
+  | { type: 'SET_SECRET'; payload: { secret: Cat } }
+  | { type: 'CREATE_PEER' }
+  | { type: 'SET_PEER_ID'; payload: { peerId: string } };
 
 export const initialState: State = {
   challenge: {
     cats: {
       status: 'STANDBY',
     },
+  },
+  p2p: {
+    status: 'STANDBY',
   },
 };
 
@@ -43,7 +52,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         challenge: {
           ...state.challenge,
           cats: {
-            status: 'LOADED',
+            status: 'READY',
             data: action.payload.cats,
           },
         },
@@ -58,6 +67,26 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         },
       };
     }
+
+    case 'CREATE_PEER': {
+      return {
+        ...state,
+        p2p: {
+          status: 'LOADING',
+        },
+      };
+    }
+
+    case 'SET_PEER_ID': {
+      return {
+        ...state,
+        p2p: {
+          status: 'READY',
+          peerId: action.payload.peerId,
+        },
+      };
+    }
+
     default:
       return state;
   }

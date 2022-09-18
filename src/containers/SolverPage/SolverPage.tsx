@@ -3,7 +3,7 @@ import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import { WhoWon } from '../../components/ChallengerPage/Steps/WhoWon/WhoWon';
 import { SubmitGuess } from '../../components/SolverPage/Steps/SubmitGuess';
-import { ChooseCat } from '../ChallengerPage/Steps/ChooseCat/ChooseCat';
+import { ChooseCat } from '../ChallengerPage/Steps/ChooseCat';
 
 export const SolverPage: React.FC = () => {
   const steps: Step[] = useMemo(() => {

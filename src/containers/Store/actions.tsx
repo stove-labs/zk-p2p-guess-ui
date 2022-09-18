@@ -18,3 +18,10 @@ export const useSetSecret = () => {
     [dispatch]
   );
 };
+
+export const useCreatePeer = () => {
+  const [_, dispatch] = useStoreContext();
+  return useCallback(() => {
+    dispatch({ type: 'CREATE_PEER' });
+  }, []);
+};
