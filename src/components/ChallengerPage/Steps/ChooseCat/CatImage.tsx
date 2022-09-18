@@ -13,7 +13,7 @@ const SelectableImg = styled.div<{
   backgroundUrl?: string;
 }>`
   border: 6px solid;
-  border-color: transparent;
+  border-color: white;
   transition: all 140ms ease-in-out;
   border-radius: 12px;
   transform: scale(1);
@@ -25,6 +25,7 @@ const SelectableImg = styled.div<{
 
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
 
   width: 100%;
   height: 100%;

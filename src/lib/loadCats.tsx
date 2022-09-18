@@ -8,7 +8,7 @@ export type AllCatsResponse = {
 }[];
 
 export const loadCats = async (): Promise<{ id: string }[]> => {
-  const response = await fetch(CAT_API_URL + '/api/cats?limit=1000');
+  const response = await fetch(CAT_API_URL + '/api/cats?limit=1000&tags=cute');
   const data = (await response.json()) as AllCatsResponse;
   const cats = data.map((data) => ({
     id: data.id,
