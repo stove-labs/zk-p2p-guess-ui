@@ -8,7 +8,10 @@ export type CatProps = {
   selected?: boolean;
 };
 
-const SelectableImg = styled.img<{ selected?: boolean }>`
+const SelectableImg = styled.div<{
+  selected?: boolean;
+  backgroundUrl?: string;
+}>`
   border: 6px solid;
   border-color: transparent;
   transition: all 140ms ease-in-out;
@@ -16,6 +19,15 @@ const SelectableImg = styled.img<{ selected?: boolean }>`
   transform: scale(1);
   cursor: pointer;
   -webkit-user-drag: none;
+  ${(props) => `
+    background: url(${props.backgroundUrl});
+  `}
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
 
   &:hover {
     border-color: var(--chakra-colors-gray-300);
@@ -36,7 +48,8 @@ export const CatImage: React.FC<CatProps> = ({ loading, image, selected }) => (
     <Skeleton isLoaded={!loading}>
       <SelectableImg
         selected={selected}
-        src={`data:image/png;base64,${image}`}
+        // src={`data:image/png;base64,${image}`}
+        backgroundUrl={image}
       />
     </Skeleton>
   </AspectRatio>

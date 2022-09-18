@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
-import { ChooseCat } from './Steps/ChooseCat';
+import { AwaitGuess } from './Steps/AwaitGuess';
+import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
 import { InviteFriend } from './Steps/InviteFriend';
 
 export const ChallengerPage: React.FC = () => {
@@ -25,7 +26,7 @@ export const ChallengerPage: React.FC = () => {
       {
         label: '⏳ Wait for a guess',
         description: `Friend's turn`,
-        content: ChooseCat,
+        content: AwaitGuess,
       },
       // show results of the game
       {

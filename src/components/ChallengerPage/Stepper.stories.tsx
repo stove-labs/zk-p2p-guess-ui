@@ -9,7 +9,6 @@ import { WhoWon } from './Steps/WhoWon/WhoWon';
 
 export default {
   component: Stepper,
-  subcomponents: { ChooseCat },
 } as ComponentMeta<typeof Stepper>;
 
 const Template: ComponentStory<typeof Stepper> = (args) => (
