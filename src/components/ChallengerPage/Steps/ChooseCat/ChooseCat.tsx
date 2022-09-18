@@ -41,7 +41,7 @@ export const ChooseCat: React.FC<ChooseCatProps> = ({
   );
 
   return (
-    <StepLayout width={'500px'}>
+    <StepLayout width={{ base: '100%', md: '500px' }}>
       <Box>
         <Box>
           <Heading>Choose a cat</Heading>

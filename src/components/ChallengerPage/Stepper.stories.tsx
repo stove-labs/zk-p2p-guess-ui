@@ -57,8 +57,8 @@ const steps: Step[] = [
     content: MockChooseCat,
   },
   {
-    label: 'Invite a friend',
-    description: '🔗 Share a link',
+    label: '🔗 Invite a friend',
+    description: 'Share a link',
     content: MockInviteFriend,
   },
   {
