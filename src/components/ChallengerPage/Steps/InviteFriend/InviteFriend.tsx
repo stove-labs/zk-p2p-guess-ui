@@ -104,14 +104,14 @@ export const InviteFriend: React.FC<InviteFriendProps> = ({
               </Button>
 
               {hasCopied ? (
-                <Text
+                <Box
                   visibility={sharableLink ? 'visible' : 'hidden'}
                   pt={1.5}
                   color={'gray.500'}
                   fontSize={'xs'}
                 >
                   <Spinner size={'xs'} /> Waiting for your friend to connect...
-                </Text>
+                </Box>
               ) : (
                 <></>
               )}
