@@ -32,8 +32,7 @@ export const AwaitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
         return 'RESULTS_READY';
 
       default:
-        // TODO: something went wrong, this case can't happen
-        return 'AWAITING_GUESS';
+        throw new Error('Invalid status');
     }
   }, [guessStatus]);
 

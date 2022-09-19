@@ -37,7 +37,7 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
       case 'INVALID':
         return 'RESULTS_READY';
       default:
-        return 'GENERATING_PROOF';
+        throw new Error('Invalid status');
     }
   }, [guessStatus]);
 
