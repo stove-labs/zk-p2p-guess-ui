@@ -27,9 +27,14 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
   }, []);
 
   const status: SubmitGuessProps['status'] = useMemo(() => {
+    console.log('status', guessStatus);
     switch (guessStatus) {
+      case 'STANDBY':
+        return 'GENERATING_PROOF';
       case 'PROVING':
         return 'GENERATING_PROOF';
+      case 'SENT':
+        return 'AWAITING_VALIDATION';
       case 'VALIDATING':
         return 'AWAITING_VALIDATION';
       case 'VALID':

@@ -37,7 +37,6 @@ export const useHandoverChallenge = (onChallengeHandedOver: () => void) => {
           {
             ...challenge,
             // IMPORTANT: get rid of the secret, this cannot be handed over as the name indicates
-
             secret: undefined,
           },
           cats.data!

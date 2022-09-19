@@ -2,17 +2,7 @@ import constate from 'constate';
 import Peer, { DataConnection } from 'peerjs';
 import { useCallback, useEffect, useState } from 'react';
 import { Cat } from '../../components/ChallengerPage/Stepper';
-import {
-  awaitConnection,
-  connectToPeer,
-  createPeer,
-  handoverChallenge,
-  receiveGuess,
-  receiveGuessStatusUpdates,
-  requestChallenge,
-  sendGuessStatusUpdate,
-  submitGuess,
-} from '../../lib/p2p';
+import p2p from '../../lib/p2p';
 import { Challenge, GuessStatus, State } from './Store/reducer';
 import { useStoreContext } from './Store/useStore';
 
@@ -21,83 +11,85 @@ export const useP2P = () => {
   const [peer, setPeer] = useState<Peer>();
   const [connection, setConnection] = useState<DataConnection>();
 
-  const _createPeer = useCallback(async () => {
-    const { peer, id } = await createPeer();
+  const createPeer = useCallback(async () => {
+    const { peer, id } = await p2p.createPeer();
     setPeer(peer);
     return id;
   }, [setPeer]);
 
-  const _awaitConnection = useCallback(async () => {
+  const awaitConnection = useCallback(async () => {
     if (connection) return connection;
-
-    const newConnection = peer && (await awaitConnection(peer));
+    const newConnection = peer && (await p2p.awaitConnection(peer));
     // persist connection for future usage
     setConnection(newConnection);
     return newConnection;
   }, [peer, connection]);
 
-  const _handoverChallenge = useCallback(
+  const handoverChallenge = useCallback(
     async (challenge: Exclude<Challenge, 'secret'>, cats: Cat[]) => {
-      const connection = await _awaitConnection();
-      connection && (await handoverChallenge(connection, challenge, cats));
+      const connection = await awaitConnection();
+      connection && (await p2p.handoverChallenge(connection, challenge, cats));
     },
-    [_awaitConnection]
+    [awaitConnection]
   );
 
-  const _requestChallenge = useCallback(async () => {
-    const handoverPayload = connection && (await requestChallenge(connection));
+  const requestChallenge = useCallback(async () => {
+    const connection = await awaitConnection();
+    const handoverPayload =
+      connection && (await p2p.requestChallenge(connection));
     return handoverPayload;
-  }, [connection]);
+  }, [awaitConnection]);
 
-  const _connectToPeer = useCallback(
+  const connectToPeer = useCallback(
     async (connectToId: string) => {
       if (peer) {
-        const connection = await connectToPeer(peer, connectToId);
+        const connection = await p2p.connectToPeer(peer, connectToId);
         setConnection(connection);
       }
     },
     [peer]
   );
 
-  const _receiveGuessStatusUpdates = useCallback(
+  const receiveGuessStatusUpdates = useCallback(
     async (onGuessStatusUpdate: (status: GuessStatus) => void) => {
-      const connection = await _awaitConnection();
+      const connection = await awaitConnection();
       connection &&
-        (await receiveGuessStatusUpdates(connection, onGuessStatusUpdate));
+        (await p2p.receiveGuessStatusUpdates(connection, onGuessStatusUpdate));
     },
-    [connection]
+    [awaitConnection]
   );
 
-  const _sendGuessStatusUpdate = useCallback(
-    (guessStatus: GuessStatus) => {
-      connection && sendGuessStatusUpdate(connection, guessStatus);
+  const sendGuessStatusUpdate = useCallback(
+    async (guessStatus: GuessStatus) => {
+      const connection = await awaitConnection();
+      connection && p2p.sendGuessStatusUpdate(connection, guessStatus);
     },
-    [connection]
+    [awaitConnection]
   );
 
-  const _receiveGuess = useCallback(async () => {
-    const connection = await _awaitConnection();
-    return connection && (await receiveGuess(connection));
-  }, [connection, _awaitConnection]);
+  const receiveGuess = useCallback(async () => {
+    const connection = await awaitConnection();
+    return connection && (await p2p.receiveGuess(connection));
+  }, [awaitConnection]);
 
-  const _submitGuess = useCallback(
+  const submitGuess = useCallback(
     async (proof: string) => {
-      const connection = await _awaitConnection();
-      return connection && submitGuess(connection, proof);
+      const connection = await awaitConnection();
+      return connection && p2p.submitGuess(connection, proof);
     },
-    [connection, _awaitConnection]
+    [awaitConnection]
   );
 
   return {
-    createPeer: _createPeer,
-    awaitConnection: _awaitConnection,
-    handoverChallenge: _handoverChallenge,
-    requestChallenge: _requestChallenge,
-    connectToPeer: _connectToPeer,
-    receiveGuessStatusUpdates: _receiveGuessStatusUpdates,
-    sendGuessStatusUpdate: _sendGuessStatusUpdate,
-    receiveGuess: _receiveGuess,
-    submitGuess: _submitGuess,
+    awaitConnection,
+    connectToPeer,
+    createPeer,
+    handoverChallenge,
+    receiveGuess,
+    receiveGuessStatusUpdates,
+    requestChallenge,
+    sendGuessStatusUpdate,
+    submitGuess,
   };
 };
 

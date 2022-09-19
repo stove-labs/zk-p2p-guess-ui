@@ -138,3 +138,15 @@ export const requestChallenge = async (
     connection.send(message);
   });
 };
+
+export default {
+  awaitConnection,
+  connectToPeer,
+  createPeer,
+  handoverChallenge,
+  receiveGuess,
+  receiveGuessStatusUpdates,
+  requestChallenge,
+  sendGuessStatusUpdate,
+  submitGuess,
+};

@@ -19,11 +19,16 @@ export const AwaitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
   useReceiveGuess(sendGuessStatus);
 
   const status: AwaitGuessProps['status'] = useMemo(() => {
+    console.log('guess status', guessStatus);
     switch (guessStatus) {
+      case 'STANDBY':
+        return 'AWAITING_GUESS';
       case 'GUESSING':
         return 'AWAITING_GUESS';
       case 'PROVING':
         return 'AWAITING_PROOF';
+      case 'SENT':
+        return 'VALIDATING_PROOF';
       case 'VALIDATING':
         return 'VALIDATING_PROOF';
       case 'VALID':
@@ -32,7 +37,7 @@ export const AwaitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
         return 'RESULTS_READY';
 
       default:
-        throw new Error('Invalid status');
+        throw new Error(`Invalid status ${guessStatus}`);
     }
   }, [guessStatus]);
 

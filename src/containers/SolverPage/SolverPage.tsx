@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
-import { WhoWon } from '../../components/ChallengerPage/Steps/WhoWon/WhoWon';
 import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
 import { SubmitGuess } from './Steps/SubmitGuess/SubmitGuess';
+import { WhoWon } from './Steps/WhoWon/WhoWon';
 
 export const SolverPage: React.FC = () => {
   const steps: Step[] = useMemo(() => {
@@ -24,13 +24,7 @@ export const SolverPage: React.FC = () => {
       {
         label: '🏆 Results',
         description: `Who won?`,
-        content: ({ nextStep }) => (
-          <WhoWon
-            selectedCat={data.storyCats[0]}
-            status={'YOU_WON'}
-            type={'SOLVER'}
-          />
-        ),
+        content: WhoWon,
       },
     ];
   }, []);

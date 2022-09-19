@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
 import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
-import { WhoWon } from '../../components/ChallengerPage/Steps/WhoWon/WhoWon';
 import { AwaitGuess } from './Steps/AwaitGuess/AwaitGuess';
 import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
 import { InviteFriend } from './Steps/InviteFriend/InviteFriend';
+import { WhoWon } from './Steps/WhoWon/WhoWon';
 
 // container responsible for orchestrating challenge steps for the Challenger
 export const ChallengerPage: React.FC = () => {
@@ -34,13 +34,7 @@ export const ChallengerPage: React.FC = () => {
       {
         label: '🏆 Results',
         description: `Who won?`,
-        content: ({ nextStep }) => (
-          <WhoWon
-            selectedCat={data.storyCats[0]}
-            status={'YOU_WON'}
-            type={'CHALLENGER'}
-          />
-        ),
+        content: WhoWon,
       },
     ];
   }, []);
