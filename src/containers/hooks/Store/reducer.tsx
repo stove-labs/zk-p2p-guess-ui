@@ -36,6 +36,7 @@ export interface State {
   };
 }
 
+// TODO: route all P2P messages via store
 export type Action =
   | { type: 'LOAD_CATS' }
   | { type: 'SET_CATS'; payload: { cats: Cat[] } }

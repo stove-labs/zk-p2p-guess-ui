@@ -22,10 +22,8 @@ export const AwaitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
     switch (guessStatus) {
       case 'GUESSING':
         return 'AWAITING_GUESS';
-
       case 'PROVING':
         return 'AWAITING_PROOF';
-
       case 'VALIDATING':
         return 'VALIDATING_PROOF';
       case 'VALID':

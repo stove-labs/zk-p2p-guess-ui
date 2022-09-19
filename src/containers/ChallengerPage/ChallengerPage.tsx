@@ -38,7 +38,7 @@ export const ChallengerPage: React.FC = () => {
           <WhoWon
             selectedCat={data.storyCats[0]}
             status={'YOU_WON'}
-            type={'SOLVER'}
+            type={'CHALLENGER'}
           />
         ),
       },
