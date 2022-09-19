@@ -30,14 +30,16 @@ export const useHandoverChallenge = (onChallengeHandedOver: () => void) => {
   // once our peer is up and running, wait for the challenge handover request and fullfill it
   useEffect(() => {
     // TODO: await connection?
-    if (state.p2p.status === 'OWN_READY' && challenge && cats.data) {
+    if (
+      state.p2p.status === 'OWN_READY' &&
+      challenge?.status === 'READY' &&
+      cats.data
+    ) {
       (async () => {
         // TODO: why doesnt the if above capture undefined `cats.data`?
         await handoverChallenge(
           {
-            ...challenge,
-            // IMPORTANT: get rid of the secret, this cannot be handed over as the name indicates
-            secret: undefined,
+            ...challenge.public,
           },
           cats.data!
         );

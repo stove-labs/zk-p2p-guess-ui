@@ -15,6 +15,7 @@ export type Cat = {
   id: string;
   // base 64
   image: string;
+  secret: string;
 };
 
 export type StepperProps = {

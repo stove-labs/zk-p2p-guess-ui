@@ -16,6 +16,7 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
   const { submitGuess } = useSubmitGuess();
   const guessStatus = useSelectGuessStatus();
 
+  // TODO: useGenerateProof using the challenge secretHash
   useEffect(() => {
     // right away set status to proving
     sendGuessStatus('PROVING');

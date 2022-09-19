@@ -26,7 +26,7 @@ export const ChooseCat: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
 
   // when cat selection is confirmed, move to the next step
   const handleCatConfirmed = useCallback((cat: Cat) => {
-    setSecret(cat.id);
+    setSecret(cat.secret);
     nextStep();
   }, []);
 

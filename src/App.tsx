@@ -3,6 +3,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { Router } from './Router';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 
+import log from 'loglevel';
+
+log.setDefaultLevel('DEBUG');
+
 export const theme = extendTheme({
   components: { Steps },
   styles: {

@@ -26,7 +26,7 @@ export const useP2P = () => {
   }, [peer, connection]);
 
   const handoverChallenge = useCallback(
-    async (challenge: Exclude<Challenge, 'secret'>, cats: Cat[]) => {
+    async (challenge: Challenge['public'], cats: Cat[]) => {
       const connection = await awaitConnection();
       connection && (await p2p.handoverChallenge(connection, challenge, cats));
     },

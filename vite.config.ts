@@ -23,9 +23,13 @@ const swcPlugin = (() => {
 
   const originalTransform = plugin.transform!;
 
+  // const transform = function (...args: Parameters<typeof originalTransform>) {
+  //   if ((args[1] as string).endsWith('tsx'))
+  //     return originalTransform.apply(this, args);
+  // };
+
   const transform = function (...args: Parameters<typeof originalTransform>) {
-    if ((args[1] as string).endsWith('tsx'))
-      return originalTransform.apply(this, args);
+    if (!args[1].endsWith('html')) return originalTransform.apply(this, args);
   };
 
   return { ...plugin, transform };

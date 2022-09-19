@@ -37,7 +37,7 @@ export const useSelectSelectedCat = () => {
   const cats = useSelectCats();
   // find a cat from all cats that matches our challenge secret
   return useMemo(() => {
-    const cat = cats.data?.find((cat) => cat.id === secret);
+    const cat = cats.data?.find((cat) => cat.secret === secret);
     if (!cat) throw new Error('Selected cat not found');
     return cat;
   }, [cats]);

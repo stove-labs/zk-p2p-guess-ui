@@ -4,6 +4,11 @@ import { P2PMessage } from '../../../lib/p2p';
 
 export interface Challenge {
   secret?: string;
+  public?: {
+    verificationKey?: string;
+    secretHash?: string;
+  };
+  status: 'STANDBY' | 'COMPILING' | 'READY';
 }
 
 export type GuessStatus =
@@ -16,7 +21,7 @@ export type GuessStatus =
   | 'INVALID';
 
 export interface State {
-  challenge?: Challenge;
+  challenge: Challenge;
   guess: {
     status: GuessStatus;
     proof?: string;
@@ -41,6 +46,11 @@ export type Action =
   | { type: 'LOAD_CATS' }
   | { type: 'SET_CATS'; payload: { cats: Cat[] } }
   | { type: 'SET_SECRET'; payload: { secret: string } }
+  | { type: 'COMPILE_CONTRACT' }
+  | {
+      type: 'CONTRACT_COMPILED';
+      payload: { verificationKey: string; secretHash: string };
+    }
   // p2p
   | { type: 'CREATE_PEER' }
   | { type: 'SET_OWN_PEER_ID'; payload: { peerId: string } }
@@ -48,7 +58,7 @@ export type Action =
   | { type: 'PEER_CONNECTED' }
   | {
       type: 'CHALLENGE_RECEIVED';
-      payload: { cats: Cat[]; challenge: Challenge };
+      payload: { cats: Cat[]; challenge: Challenge['public'] };
     }
   | { type: 'HANDOVER_COMPLETE' }
   | {
@@ -72,6 +82,9 @@ export const initialState: State = {
     status: 'STANDBY',
   },
   guess: {
+    status: 'STANDBY',
+  },
+  challenge: {
     status: 'STANDBY',
   },
 };
@@ -99,6 +112,8 @@ export const reducer: Reducer<State, Action> = (state, action) => {
       return {
         ...state,
         challenge: {
+          ...state.challenge,
+          status: 'STANDBY',
           secret: action.payload.secret,
         },
       };
@@ -150,6 +165,10 @@ export const reducer: Reducer<State, Action> = (state, action) => {
           status: 'READY',
           data: action.payload.cats,
         },
+        challenge: {
+          ...state.challenge,
+          public: action.payload.challenge,
+        },
       };
     }
 
@@ -179,6 +198,31 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         guess: {
           ...state.guess,
           proof: action.payload.proof,
+        },
+      };
+    }
+
+    case 'COMPILE_CONTRACT': {
+      return {
+        ...state,
+        challenge: {
+          ...state.challenge,
+          status: 'COMPILING',
+        },
+      };
+    }
+
+    case 'CONTRACT_COMPILED': {
+      return {
+        ...state,
+        challenge: {
+          ...state.challenge,
+          status: 'READY',
+          public: {
+            ...state.challenge?.public,
+            verificationKey: action.payload.verificationKey,
+            secretHash: action.payload.secretHash,
+          },
         },
       };
     }

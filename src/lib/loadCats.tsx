@@ -11,7 +11,7 @@ export type AllCatsResponse = {
 export const loadAllCats = async (): Promise<{ id: string }[]> => {
   const response = await fetch(CAT_API_URL + '/api/cats?limit=1000&tags=cute');
   const data = (await response.json()) as AllCatsResponse;
-  const cats = data.map((data) => ({
+  const cats = data.map((data, i) => ({
     id: data.id,
   }));
 
@@ -25,14 +25,15 @@ export const loadCatImage = async (id: string) => {
   return base64;
 };
 
-export const loadFewCats = async () => {
+export const loadFewCats = async (): Promise<Cat[]> => {
   const allCats = await loadAllCats();
   const sampleCats = sampleSize(allCats, 9);
 
   const cats = await Promise.all(
-    sampleCats.map(async (cat) => ({
+    sampleCats.map(async (cat, i) => ({
       id: cat.id,
       image: await loadCatImage(cat.id),
+      secret: i.toString(),
     }))
   );
 

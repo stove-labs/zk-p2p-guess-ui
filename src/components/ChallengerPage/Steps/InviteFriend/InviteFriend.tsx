@@ -31,17 +31,20 @@ import { TimeElapsed } from '../../../TimeElapsed';
 export type InviteFriendProps = {
   peerId?: string;
   selectedCat: Cat;
+  status: 'AWAITING_LINK' | 'LINK_READY';
 };
 
 export const InviteFriend: React.FC<InviteFriendProps> = ({
   peerId,
   selectedCat,
+  status,
 }) => {
   // link is only valid if a peerId is available
   const sharableLink = useMemo(
     () =>
-      peerId && `${location.protocol}//${location.host}/challenge/${peerId}`,
-    [peerId]
+      status === 'LINK_READY' &&
+      `${location.protocol}//${location.host}/challenge/${peerId}`,
+    [peerId, status]
   );
 
   const toast = useToast();

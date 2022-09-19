@@ -12,7 +12,7 @@ export type P2PMessage =
       type?: 'HANDOVER_CHALLENGE';
       payload: {
         cats: Cat[];
-        challenge: Challenge;
+        challenge: Challenge['public'];
       };
     }
   | {
@@ -51,7 +51,7 @@ export const awaitConnection = async (peer: Peer): Promise<DataConnection> => {
 
 export const handoverChallenge = async (
   connection: DataConnection,
-  challenge: Exclude<Challenge, 'secret'>,
+  challenge: Challenge['public'],
   cats: Cat[]
 ): Promise<DataConnection> => {
   return new Promise((resolve, reject) => {
@@ -125,7 +125,7 @@ export const connectToPeer = async (peer: Peer, connectToId: string) => {
 
 export const requestChallenge = async (
   connection: DataConnection
-): Promise<{ cats: Cat[]; challenge: Challenge }> => {
+): Promise<{ cats: Cat[]; challenge: Challenge['public'] }> => {
   return new Promise((resolve, reject) => {
     connection.on('data', (data) => {
       const message = data as P2PMessage | undefined;
