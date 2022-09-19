@@ -5,6 +5,7 @@ import {
   GuessStatus,
   State,
 } from '../containers/hooks/Store/reducer';
+import { JsonProof } from './zk/getProofFromGuess';
 
 export type P2PMessage =
   | { type?: 'REQUEST_CHALLENGE' }
@@ -25,7 +26,7 @@ export type P2PMessage =
       type: 'SUBMIT_GUESS';
       payload: {
         // TODO: add challenge here to solidify the protocol?
-        proof: string;
+        proof: JsonProof;
       };
     };
 
@@ -91,7 +92,7 @@ export const sendGuessStatusUpdate = (
 
 export const receiveGuess = async (
   connection: DataConnection
-): Promise<string> => {
+): Promise<JsonProof> => {
   return new Promise((resolve, reject) => {
     connection.on('data', (data) => {
       const message = data as P2PMessage | undefined;
@@ -102,7 +103,7 @@ export const receiveGuess = async (
   });
 };
 
-export const submitGuess = (connection: DataConnection, proof: string) => {
+export const submitGuess = (connection: DataConnection, proof: JsonProof) => {
   const message: P2PMessage = {
     type: 'SUBMIT_GUESS',
     payload: { proof },

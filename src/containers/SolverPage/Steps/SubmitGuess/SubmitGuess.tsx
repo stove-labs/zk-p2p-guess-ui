@@ -12,20 +12,12 @@ import {
 import { useSubmitGuess } from './hooks/useSubmitGuess';
 export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
   const selectedCat = useSelectSelectedCat();
-  const { sendGuessStatus } = useSyncGuessStatus();
   const { submitGuess } = useSubmitGuess();
   const guessStatus = useSelectGuessStatus();
 
-  // TODO: useGenerateProof using the challenge secretHash
   useEffect(() => {
-    // right away set status to proving
-    sendGuessStatus('PROVING');
-    // after a while submit a proof
-    setTimeout(() => {
-      sendGuessStatus('SENT');
-      submitGuess('mock-proof');
-    }, 3000);
-  }, []);
+    submitGuess(selectedCat);
+  }, [selectedCat]);
 
   const status: SubmitGuessProps['status'] = useMemo(() => {
     console.log('status', guessStatus);

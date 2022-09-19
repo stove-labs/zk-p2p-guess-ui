@@ -3,6 +3,7 @@ import Peer, { DataConnection } from 'peerjs';
 import { useCallback, useEffect, useState } from 'react';
 import { Cat } from '../../components/ChallengerPage/Stepper';
 import p2p from '../../lib/p2p';
+import { JsonProof } from '../../lib/zk/getProofFromGuess';
 import { Challenge, GuessStatus, State } from './Store/reducer';
 import { useStoreContext } from './Store/useStore';
 
@@ -73,7 +74,7 @@ export const useP2P = () => {
   }, [awaitConnection]);
 
   const submitGuess = useCallback(
-    async (proof: string) => {
+    async (proof: JsonProof) => {
       const connection = await awaitConnection();
       return connection && p2p.submitGuess(connection, proof);
     },

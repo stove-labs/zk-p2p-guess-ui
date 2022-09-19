@@ -1,6 +1,7 @@
 import { Reducer } from 'react';
 import { Cat } from '../../../components/ChallengerPage/Stepper';
 import { P2PMessage } from '../../../lib/p2p';
+import { JsonProof } from '../../../lib/zk/getProofFromGuess';
 
 export interface Challenge {
   secret?: string;
@@ -24,7 +25,7 @@ export interface State {
   challenge: Challenge;
   guess: {
     status: GuessStatus;
-    proof?: string;
+    proof?: JsonProof;
   };
   cats: {
     data?: Cat[];
@@ -70,7 +71,7 @@ export type Action =
   | {
       type: 'SET_GUESS';
       payload: {
-        proof: string;
+        proof: JsonProof;
       };
     };
 
