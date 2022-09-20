@@ -28,35 +28,38 @@ export const useReceiveGuess = (
   }, [receiveGuess]);
 
   useEffect(() => {
-    if (guessStatus !== 'SENT') return;
-    // validate proof and send back guess status
-    sendGuessStatus('VALIDATING');
-    (async () => {
-      console.log('about to validate', {
-        proof: state.guess.proof,
-        verificationKey: state.challenge.public?.verificationKey,
-      });
-      let proofValid;
-      try {
-        proofValid = await runWorkerWithMessage<
-          {
-            proof: JsonProof;
-            verificationKey: string;
-          },
-          boolean
-        >(
-          new Worker(new URL('/src/lib/zk/verifyProof.ts', import.meta.url), {
-            type: 'module',
-          }),
-          // TODO: get rid of '!'
-          {
-            proof: state.guess.proof!,
-            verificationKey: state.challenge.public!.verificationKey!,
-          }
-        );
-      } catch (e) {}
-      console.log('proof valid?', proofValid, state.guess.proof);
-      proofValid ? sendGuessStatus('VALID') : sendGuessStatus('INVALID');
-    })();
-  }, [state.guess.proof, guessStatus]);
+    if (guessStatus === 'RECEIVED') {
+      console.log('received guess, can validate now');
+      // validate proof and send back guess status
+      sendGuessStatus('VALIDATING');
+      (async () => {
+        console.log('about to validate', {
+          proof: state.guess.proof,
+          guessStatus,
+          verificationKey: state.challenge.public?.verificationKey,
+        });
+        let proofValid;
+        try {
+          proofValid = await runWorkerWithMessage<
+            {
+              proof: JsonProof;
+              verificationKey: string;
+            },
+            boolean
+          >(
+            new Worker(new URL('/src/lib/zk/verifyProof.ts', import.meta.url), {
+              type: 'module',
+            }),
+            // TODO: get rid of '!'
+            {
+              proof: state.guess.proof!,
+              verificationKey: state.challenge.public!.verificationKey!,
+            }
+          );
+        } catch (e) {}
+        console.log('proof valid?', proofValid, state.guess.proof);
+        proofValid ? sendGuessStatus('VALID') : sendGuessStatus('INVALID');
+      })();
+    }
+  }, [state, guessStatus]);
 };

@@ -28,6 +28,8 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
         return 'GENERATING_PROOF';
       case 'SENT':
         return 'AWAITING_VALIDATION';
+      case 'RECEIVED':
+        return 'AWAITING_VALIDATION';
       case 'VALIDATING':
         return 'AWAITING_VALIDATION';
       case 'VALID':

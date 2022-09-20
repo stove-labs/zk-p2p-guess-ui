@@ -14,6 +14,7 @@ export const verifyProof = async (
   proof: JsonProof,
   verificationKey: string
 ): Promise<boolean> => {
+  console.log('verifyProof', proof);
   if (!proof) return false;
   console.log('verifyProof', JSON.stringify({ proof, verificationKey }));
   await isReady;

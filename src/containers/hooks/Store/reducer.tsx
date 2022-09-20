@@ -17,6 +17,7 @@ export type GuessStatus =
   | 'GUESSING'
   | 'PROVING'
   | 'SENT'
+  | 'RECEIVED'
   | 'VALIDATING'
   | 'VALID'
   | 'INVALID';
@@ -198,6 +199,7 @@ export const reducer: Reducer<State, Action> = (state, action) => {
         ...state,
         guess: {
           ...state.guess,
+          status: 'RECEIVED',
           proof: action.payload.proof,
         },
       };
