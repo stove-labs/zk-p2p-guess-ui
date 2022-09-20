@@ -34,9 +34,9 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-swc3": "^0.6.0",
+    "snarkyjs": "0.6.0",
     "usehooks-ts": "^2.6.0",
-    "zk-p2p-guess": "file:../zk-p2p-guess",
-    "snarkyjs": "0.6.0"
+    "zk-p2p-guess": "github:stove-labs/zk-p2p-guess"
   },
   "peerDependencies": {
     "@chakra-ui/icons": "^2.0.9",
