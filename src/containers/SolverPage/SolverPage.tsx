@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { Stepper, Step } from '../../components/ChallengerPage/Stepper';
-import { data } from '../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import { ChooseCat } from './Steps/ChooseCat/ChooseCat';
 import { SubmitGuess } from './Steps/SubmitGuess/SubmitGuess';
 import { WhoWon } from './Steps/WhoWon/WhoWon';

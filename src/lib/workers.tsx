@@ -24,18 +24,19 @@ export type RPCResponseMessage<TData> = {
  * @returns Promise<TData>
  */
 export const runWorkerWithMessage = async <TMessage, TData>(
-  url: string,
+  // url: string,
+  worker: Worker,
   message: TMessage
 ): Promise<TData> => {
   // create the worker
-  const workerURL = new URL('./../' + url, import.meta.url);
-  const worker = new Worker(workerURL, {
-    type: 'module',
-  });
+  // const workerURL = new URL('data-url:./../' + url, import.meta.url);
+  // const worker = new Worker(workerURL, {
+  //   type: 'module',
+  // });
 
   // wrap the worker RPC exchange in a promise
   return new Promise((resolve, reject) => {
-    console.log('starting worker', workerURL, worker);
+    // console.log('starting worker', workerURL, worker);
     worker.onmessage = (e: MessageEvent<RPCResponseMessage<TData>>) => {
       /**
        * If the worker response does not confront to the required format,

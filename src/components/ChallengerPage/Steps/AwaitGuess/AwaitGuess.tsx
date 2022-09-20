@@ -25,14 +25,11 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useMemo } from 'react';
-import { CatImage } from '../ChooseCat/CatImage';
-import { data } from '../ChooseCat/ChooseCat.stories';
 import { StepLayout } from '../StepLayout';
-import { useStopwatch } from 'react-timer-hook';
-import { useCopyToClipboard, useCountdown } from 'usehooks-ts';
 import { Cat } from '../../Stepper';
 import { StackedCatImage } from '../ChooseCat/StackedCatImage';
 import { TimeElapsed } from '../../../TimeElapsed';
+import { useCountdown } from 'usehooks-ts';
 
 export type AwaitGuessProps = {
   selectedCat: Cat;

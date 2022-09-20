@@ -13,6 +13,7 @@ export const data = {
   storyCats: Array.from(Array(9)).map((cat, i) => ({
     id: `${i}`,
     image: base64Cat,
+    secret: `${i}`,
   })),
 };
 

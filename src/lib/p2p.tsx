@@ -26,7 +26,7 @@ export type P2PMessage =
       type: 'SUBMIT_GUESS';
       payload: {
         // TODO: add challenge here to solidify the protocol?
-        proof: JsonProof;
+        proof?: JsonProof;
       };
     };
 
@@ -92,7 +92,7 @@ export const sendGuessStatusUpdate = (
 
 export const receiveGuess = async (
   connection: DataConnection
-): Promise<JsonProof> => {
+): Promise<JsonProof | undefined> => {
   return new Promise((resolve, reject) => {
     connection.on('data', (data) => {
       const message = data as P2PMessage | undefined;
@@ -103,7 +103,7 @@ export const receiveGuess = async (
   });
 };
 
-export const submitGuess = (connection: DataConnection, proof: JsonProof) => {
+export const submitGuess = (connection: DataConnection, proof?: JsonProof) => {
   const message: P2PMessage = {
     type: 'SUBMIT_GUESS',
     payload: { proof },

@@ -19,7 +19,9 @@ export const useCreateChallengeLazy = () => {
       (async () => {
         // TODO: why do i need to '!' when i've checked for undefined in the if statement above?
         const secretHash = await runWorkerWithMessage<string, string>(
-          'lib/zk/getSecretHash.ts',
+          new Worker(new URL('/src/lib/zk/getSecretHash.ts', import.meta.url), {
+            type: 'module',
+          }),
           // TODO: get rid of '!'
           challenge.secret!
         );
@@ -27,7 +29,16 @@ export const useCreateChallengeLazy = () => {
         console.log('___COMPLETE____', { secretHash });
 
         const verificationKey = await runWorkerWithMessage<string, string>(
-          'lib/zk/getVerificationKeyFromChallangeHash.ts',
+          // 'lib/zk/getVerificationKeyFromChallangeHash.ts',
+          new Worker(
+            new URL(
+              '/src/lib/zk/getVerificationKeyFromChallangeHash.ts',
+              import.meta.url
+            ),
+            {
+              type: 'module',
+            }
+          ),
           // TODO: get rid of '!'
           secretHash
         );

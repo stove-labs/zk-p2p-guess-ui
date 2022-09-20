@@ -74,7 +74,7 @@ export const useP2P = () => {
   }, [awaitConnection]);
 
   const submitGuess = useCallback(
-    async (proof: JsonProof) => {
+    async (proof?: JsonProof) => {
       const connection = await awaitConnection();
       return connection && p2p.submitGuess(connection, proof);
     },

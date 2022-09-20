@@ -26,7 +26,6 @@ import {
 } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
 import { CatImage } from '../ChooseCat/CatImage';
-import { data } from '../ChooseCat/ChooseCat.stories';
 import { StepLayout } from '../StepLayout';
 import { useStopwatch } from 'react-timer-hook';
 import { useCopyToClipboard } from 'usehooks-ts';

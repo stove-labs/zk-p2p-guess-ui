@@ -8,10 +8,48 @@ module.exports = {
   ],
   framework: '@storybook/react',
   core: {
-    builder: '@storybook/builder-vite',
+    builder: 'webpack5',
   },
   features: {
-    storyStoreV7: true,
     emotionAlias: false,
+  },
+  typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) =>
+        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+    },
+  },
+  webpackFinal: async (config) => {
+    // config.module.rules.push({
+    //   test: /\.(m?js)$/,
+    //   type: 'javascript/auto',
+    //   // include: /node_modules/,
+    //   resolve: {
+    //     fullySpecified: false,
+    //   },
+    // });
+
+    config.module.rules.push({
+      test: /\.(m?js)$/,
+      include: /node_modules/,
+      type: 'javascript/auto',
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    config.module.rules.push({
+      test: /\.(m?js)$/,
+      type: 'javascript/auto',
+      resolve: {
+        fullySpecified: false,
+      },
+    });
+
+    return config;
   },
 };

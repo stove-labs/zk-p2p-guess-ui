@@ -47,11 +47,7 @@ const SelectableImg = styled.div<{
 export const CatImage: React.FC<CatProps> = ({ loading, image, selected }) => (
   <AspectRatio ratio={1} width={'100%'}>
     <Skeleton isLoaded={!loading}>
-      <SelectableImg
-        selected={selected}
-        // src={`data:image/png;base64,${image}`}
-        backgroundUrl={image}
-      />
+      <SelectableImg selected={selected} backgroundUrl={image} />
     </Skeleton>
   </AspectRatio>
 );

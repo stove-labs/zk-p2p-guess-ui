@@ -1,4 +1,3 @@
-import { data } from '../../../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import {
   useSelectGuessStatus,
   useSelectSelectedCat,

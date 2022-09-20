@@ -32,7 +32,13 @@ const MockInviteFriend: Step['content'] = ({ nextStep }) => {
       setTimeout(nextStep, 3000);
     }, 3000);
   }, []);
-  return <InviteFriend selectedCat={data.storyCats[0]} peerId={peerId} />;
+  return (
+    <InviteFriend
+      status={'LINK_READY'}
+      selectedCat={data.storyCats[0]}
+      peerId={peerId}
+    />
+  );
 };
 const MockAwaitGuess: Step['content'] = ({ nextStep }) => {
   const [status, setStatus] =
@@ -46,7 +52,13 @@ const MockAwaitGuess: Step['content'] = ({ nextStep }) => {
       }, 3000);
     }, 3000);
   }, []);
-  return <AwaitGuess selectedCat={data.storyCats[0]} status={status} />;
+  return (
+    <AwaitGuess
+      onShowResults={nextStep}
+      selectedCat={data.storyCats[0]}
+      status={status}
+    />
+  );
 };
 
 const steps: Step[] = [

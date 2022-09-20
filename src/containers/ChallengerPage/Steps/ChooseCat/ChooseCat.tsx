@@ -3,7 +3,6 @@ import {
   Cat,
   PropsWithSteps,
 } from '../../../../components/ChallengerPage/Stepper';
-import { data } from '../../../../components/ChallengerPage/Steps/ChooseCat/ChooseCat.stories';
 import { ChooseCat as ChooseCatComponent } from '../../../../components/ChallengerPage/Steps/ChooseCat/ChooseCat';
 import { useSelectCats } from '../../../hooks/Store/selectors';
 import { useLoadCatsLazy } from './hooks/useLoadCats';

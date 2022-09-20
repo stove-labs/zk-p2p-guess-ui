@@ -42,7 +42,9 @@ export const useReceiveGuess = (
           },
           boolean
         >(
-          'lib/zk/verifyProof.ts',
+          new Worker(new URL('/src/lib/zk/verifyProof.ts', import.meta.url), {
+            type: 'module',
+          }),
           // TODO: get rid of '!'
           {
             proof: state.guess.proof!,

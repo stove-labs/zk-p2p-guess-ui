@@ -22,18 +22,31 @@ export const useSubmitGuess = () => {
         state: challenge.public.secretHash!,
       };
       const guess = cat.secret;
-      const proof = await runWorkerWithMessage<
-        {
-          contract: {
-            verificationKey: string;
-            state: string;
-          };
-          guess: string;
-        },
-        JsonProof
-      >('lib/zk/getProofFromGuess.ts', { contract, guess });
-      console.log('proof', proof);
-      submitGuess(proof);
+      // TODO: try-catch if the proof generation fails
+      try {
+        const proof = await runWorkerWithMessage<
+          {
+            contract: {
+              verificationKey: string;
+              state: string;
+            };
+            guess: string;
+          },
+          JsonProof
+        >(
+          new Worker(
+            new URL('/src/lib/zk/getProofFromGuess.ts', import.meta.url),
+            {
+              type: 'module',
+            }
+          ),
+          { contract, guess }
+        );
+        console.log('proof', proof);
+        submitGuess(proof);
+      } catch (e) {
+        submitGuess();
+      }
       sendGuessStatus('SENT');
     },
     [submitGuess, challenge]
