@@ -123,7 +123,7 @@ export const WhoWon: React.FC<WhoWonProps> = ({
             </Box>
             <Box pt={6} width={'100%'}>
               <Button rightIcon={<ChevronRightIcon />} width={'100%'}>
-                Back to home page
+                <a href="/">Back to home page</a>
               </Button>
             </Box>
           </Center>

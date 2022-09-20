@@ -22,9 +22,9 @@ export const useSubmitGuess = () => {
         state: challenge.public.secretHash!,
       };
       const guess = cat.secret;
-      // TODO: try-catch if the proof generation fails
+      let proof;
       try {
-        const proof = await runWorkerWithMessage<
+        proof = await runWorkerWithMessage<
           {
             contract: {
               verificationKey: string;
@@ -42,11 +42,9 @@ export const useSubmitGuess = () => {
           ),
           { contract, guess }
         );
-        console.log('proof', proof);
-        submitGuess(proof);
-      } catch (e) {
-        submitGuess();
-      }
+      } catch (e) {}
+      console.log('proof', proof);
+      submitGuess(proof);
       sendGuessStatus('SENT');
     },
     [submitGuess, challenge]

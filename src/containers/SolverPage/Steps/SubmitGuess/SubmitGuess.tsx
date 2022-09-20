@@ -16,8 +16,8 @@ export const SubmitGuess: React.FC<PropsWithSteps<{}>> = ({ nextStep }) => {
   const guessStatus = useSelectGuessStatus();
 
   useEffect(() => {
-    submitGuess(selectedCat);
-  }, [selectedCat]);
+    guessStatus === 'STANDBY' && submitGuess(selectedCat);
+  }, [selectedCat, guessStatus]);
 
   const status: SubmitGuessProps['status'] = useMemo(() => {
     console.log('status', guessStatus);

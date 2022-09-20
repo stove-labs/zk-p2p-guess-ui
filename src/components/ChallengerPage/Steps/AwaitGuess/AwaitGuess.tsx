@@ -63,11 +63,17 @@ export const AwaitGuess: React.FC<AwaitGuessProps> = ({
 
   useEffect(() => {
     status === 'RESULTS_READY' && startCountdown();
-  }, [startCountdown]);
+  }, [startCountdown, status]);
 
   const handleShowResults = useCallback(() => {
     onShowResults();
   }, [onShowResults]);
+
+  useEffect(() => {
+    if (count === 0 && status === 'RESULTS_READY') {
+      handleShowResults();
+    }
+  }, [count, handleShowResults, status]);
 
   return (
     <StepLayout width={{ base: '100%', md: '500px' }}>

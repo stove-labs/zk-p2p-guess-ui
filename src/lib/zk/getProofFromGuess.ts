@@ -84,9 +84,13 @@ onmessage = async (
   }>
 ) => {
   log.debug('message recieved', e);
-  const proof = await getProofFromGuess(e.data.contract, e.data.guess);
-  const responseMessage: RPCResponseMessage<JsonProof> = {
-    status: 'success',
+  let proof;
+  try {
+    proof = await getProofFromGuess(e.data.contract, e.data.guess);
+  } catch (e) {}
+
+  const responseMessage: RPCResponseMessage<JsonProof | undefined> = {
+    status: proof !== undefined ? 'success' : 'failure',
     data: proof,
   };
 

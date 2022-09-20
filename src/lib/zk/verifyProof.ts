@@ -14,6 +14,7 @@ export const verifyProof = async (
   proof: JsonProof,
   verificationKey: string
 ): Promise<boolean> => {
+  if (!proof) return false;
   console.log('verifyProof', JSON.stringify({ proof, verificationKey }));
   await isReady;
   console.log('is ready');
@@ -44,9 +45,13 @@ onmessage = async (
   }>
 ) => {
   log.debug('message recieved', e);
-  const valid = await verifyProof(e.data.proof, e.data.verificationKey);
-  const responseMessage: RPCResponseMessage<boolean> = {
-    status: 'success',
+  let valid;
+
+  try {
+    valid = await verifyProof(e.data.proof, e.data.verificationKey);
+  } catch (e) {}
+  const responseMessage: RPCResponseMessage<boolean | undefined> = {
+    status: valid !== undefined ? 'success' : 'failure',
     data: valid,
   };
 

@@ -25,15 +25,17 @@ export const SubmitGuess: React.FC<SubmitGuessProps> = ({
 
   useEffect(() => {
     status === 'RESULTS_READY' && startCountdown();
-  }, [startCountdown]);
+  }, [startCountdown, status]);
 
   const handleShowResults = useCallback(() => {
     onShowResults();
   }, [onShowResults]);
 
   useEffect(() => {
-    if (count === 0 && status === 'RESULTS_READY') handleShowResults();
-  }, [count, handleShowResults]);
+    if (count === 0 && status === 'RESULTS_READY') {
+      handleShowResults();
+    }
+  }, [count, handleShowResults, status]);
 
   const loadingText = useMemo(() => {
     switch (status) {

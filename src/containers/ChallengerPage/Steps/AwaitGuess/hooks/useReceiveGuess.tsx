@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { runWorkerWithMessage } from '../../../../../lib/workers';
 import { JsonProof } from '../../../../../lib/zk/getProofFromGuess';
 import { GuessStatus } from '../../../../hooks/Store/reducer';
+import { useSelectGuessStatus } from '../../../../hooks/Store/selectors';
 import { useStoreContext } from '../../../../hooks/Store/useStore';
 import { useP2P, useP2PContext } from '../../../../hooks/useP2P';
 
@@ -10,6 +11,7 @@ export const useReceiveGuess = (
 ) => {
   const { receiveGuess } = useP2PContext();
   const [state, dispatch] = useStoreContext();
+  const guessStatus = useSelectGuessStatus();
 
   useEffect(() => {
     (async () => {
@@ -26,16 +28,17 @@ export const useReceiveGuess = (
   }, [receiveGuess]);
 
   useEffect(() => {
-    if (!state.guess.proof) return;
+    if (guessStatus !== 'SENT') return;
     // validate proof and send back guess status
     sendGuessStatus('VALIDATING');
     (async () => {
+      console.log('about to validate', {
+        proof: state.guess.proof,
+        verificationKey: state.challenge.public?.verificationKey,
+      });
+      let proofValid;
       try {
-        console.log('about to validate', {
-          proof: state.guess.proof,
-          verificationKey: state.challenge.public?.verificationKey,
-        });
-        const proofValid = await runWorkerWithMessage<
+        proofValid = await runWorkerWithMessage<
           {
             proof: JsonProof;
             verificationKey: string;
@@ -51,13 +54,9 @@ export const useReceiveGuess = (
             verificationKey: state.challenge.public!.verificationKey!,
           }
         );
-        console.log('proof valid?', proofValid, state.guess.proof);
-        proofValid ? sendGuessStatus('VALID') : sendGuessStatus('INVALID');
-      } catch (e) {
-        console.log('something went wrong while validating');
-
-        sendGuessStatus('INVALID');
-      }
+      } catch (e) {}
+      console.log('proof valid?', proofValid, state.guess.proof);
+      proofValid ? sendGuessStatus('VALID') : sendGuessStatus('INVALID');
     })();
-  }, [state.guess.proof]);
+  }, [state.guess.proof, guessStatus]);
 };
