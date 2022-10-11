@@ -48,6 +48,11 @@ export const ChooseCat: React.FC<ChooseCatProps> = ({
         </Box>
         <Box pt={1}>
           <Text>It's your turn to choose a cat, choose wisely.</Text>
+          <Text fontSize={'sm'} color={'red.500'} mt={'2'}>
+            <b>⚠️ Outage warning:</b> Cat images are currently unavailable due
+            to issues with the random cat API. You will be presented with 9
+            random pixelated images instead.
+          </Text>
         </Box>
       </Box>
       <Box pt={6}>
